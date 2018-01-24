@@ -23,21 +23,12 @@ public:
         ListNode * tail = head;
 
         int rest = 0;
-        while( p1 != NULL || p2 != NULL){
-            int n1 = 0, n2 = 0;
-            if( p1 != NULL ) {
-                n1 = p1->val;
-            }
+        while( p1 != NULL || p2 != NULL || rest > 0){
 
-            if( p2 != NULL ) {
-                n2 = p2->val;
-            }
-
-            int sum = n1 + n2 + rest;
+            int sum = (p1 ? p1->val : 0) + (p2 ? p2->val : 0) + rest;
             rest = sum / 10;
-            sum = sum % 10;
 
-            tail->next = new ListNode(sum);
+            tail->next = new ListNode(sum % 10);
             tail = tail->next;
 
             if( p1 != NULL ) {
@@ -47,10 +38,6 @@ public:
             if( p2 != NULL ) {
                 p2 = p2->next;  
             }
-        }
-
-        if( rest > 0 ) {
-            tail->next = new ListNode(rest);
         }
 
         tail = head;
