@@ -7,11 +7,15 @@
             "label": "build program",
             "type": "shell",
             "windows": {
-                "command": "build.bat",
+                "command": "build.bat"
             },
             "problemMatcher": [
                 "$msCompile"
-            ]
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
