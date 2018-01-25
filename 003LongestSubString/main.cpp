@@ -8,24 +8,44 @@ using namespace std;
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        string ss = s;
-        int maxLength = 0;
-        unordered_map<string::value_type, int > checkMap;
-        for(; ss.size() > 0 && checkMap.size() != ss.size(); ) {
-            checkMap.clear();
+    // int lengthOfLongestSubstring(string s) {
+    //     string ss = s;
+    //     int maxLength = 0;
+    //     unordered_map<string::value_type, int > checkMap;
+    //     for(; ss.size() > 0 && checkMap.size() != ss.size(); ) {
+    //         checkMap.clear();
 
-            for(int i=0; i<ss.size(); i++) {
-                string::value_type c = ss[i];
-                if( checkMap.find(c) != checkMap.end() ) {
-                    ss = ss.substr(checkMap[c]+1);
-                    break;
-                } else {
-                    checkMap[ss[i]] = i;
+    //         for(int i=0; i<ss.size(); i++) {
+    //             string::value_type c = ss[i];
+    //             if( checkMap.find(c) != checkMap.end() ) {
+    //                 ss = ss.substr(checkMap[c]+1);
+    //                 break;
+    //             } else {
+    //                 checkMap[ss[i]] = i;
+    //             }
+    //         }
+    //         maxLength = maxLength < checkMap.size() ? checkMap.size() : maxLength;
+    //     }
+    //     return maxLength;
+    // }
+
+    int lengthOfLongestSubstring(string s) {
+        int maxLength = 0;
+        int start = 0;
+        unordered_map<string::value_type, int > checkMap;
+        for(int i=0; i<s.size(); i++) {
+            string::value_type c = s[i];
+            if( checkMap.find(c) != checkMap.end() ) {
+                if( start < checkMap[c]+1 ) {
+                    start = checkMap[c]+1;
                 }
             }
-            maxLength = maxLength < checkMap.size() ? checkMap.size() : maxLength;
+            checkMap[c] = i;
+            if( maxLength < i - start + 1 ) {
+                maxLength = i - start + 1;
+            }
         }
+
         return maxLength;
     }
 };
