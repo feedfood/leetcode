@@ -11,38 +11,35 @@ class Solution {
 public:
     string longestPalindrome(string s) {
 
-        string temp;
         if( s.size() < 2 ) {
-            temp = s;
+            return s;
         }
 
-        if( s.size() >= 2 && s[0] == s[1]) {
-            if( temp.size() < 2 ) {
-                temp = s.substr(0,2);
-            }
-        }
-
-        for(int i=0;i<s.size();i++) {
-            for(int n=1;;n++) {
-                int rightPos = i + n;
-                int leftPos = i - n;
-                if(rightPos>=s.size()) {
-                    break;
-                }
-                if(leftPos<0) {
-                    break;
-                }
-                if(s[i] == s[rightPos]) {
-                    if( temp.size() < rightPos - i + 1 ) {
-                        temp = s.substr(i,rightPos - i + 1);
+        string temp;
+        for(int i=0;i<s.size() ;i++) {
+            for(int odd=0; odd<=1; odd++) {
+                for(int n=1;;n++) {
+                    int rightPos = i + n;
+                    int leftPos = i - (n - odd);
+                    if(rightPos>=s.size()) {
+                        break;
                     }
-                }
-                if(s[leftPos] == s[rightPos]) {
-                    if( temp.size() < rightPos - leftPos + 1 ) {
-                        temp = s.substr(leftPos, rightPos - leftPos + 1);
+                    if(leftPos<0) {
+                        break;
+                    }
+                    if(s[leftPos] == s[rightPos]) {
+                        if( temp.size() < rightPos - leftPos + 1 ) {
+                            temp = s.substr(leftPos, rightPos - leftPos + 1);
+                        }
+                    } else {
+                        break;
                     }
                 }
             }
+        }
+
+        if( temp.size() == 0 ) {
+            temp = s[0];
         }
 
         return temp;
@@ -90,7 +87,7 @@ int main(){
     std::cout << "case 4: ab, return empty ";
     input = "ab";
     answer = s.longestPalindrome(input);
-    if( answer.size() == 0 ) {
+    if( answer == "a" ) {
         std::cout << " OK ";
     } else {
         std::cout << " ERROR ";
@@ -101,7 +98,7 @@ int main(){
     std::cout << "case 5: abc, return empty ";
     input = "abc";
     answer = s.longestPalindrome(input);
-    if( answer.size() == 0 ) {
+    if( answer == "a" ) {
         std::cout << " OK ";
     } else {
         std::cout << " ERROR ";
@@ -124,6 +121,17 @@ int main(){
     input = "abb";
     answer = s.longestPalindrome(input);
     if( answer == "bb" ) {
+        std::cout << " OK ";
+    } else {
+        std::cout << " ERROR \"" << answer.c_str() << "\"";
+    }
+    std::cout << endl;
+
+        //case 8
+    std::cout << "case 8: abcda, return a ";
+    input = "abcd";
+    answer = s.longestPalindrome(input);
+    if( answer == "a" ) {
         std::cout << " OK ";
     } else {
         std::cout << " ERROR \"" << answer.c_str() << "\"";
