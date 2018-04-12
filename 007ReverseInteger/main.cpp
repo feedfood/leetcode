@@ -10,16 +10,27 @@ using namespace std;
 
 class Solution {
 public:
-    int reverse(int x) {
-        
-        int r = x % 10;
-        int ret = r;
-        x = x / 10;
+    int reverse(int y) {
+        int x = y;
+
+        int r = 0;
+        int ret = 0;
+
+        // int max = (int32_t)0x7fffffff / 10;
+        // int min = (int32_t)0x80000000 / 10;
 
         while( x != 0 ) {
             r = x % 10;
             x = x / 10;
-            ret = ret * 10 + r;
+            // if( ret > max || ret < min) {
+            //     return 0;
+            // } 
+            int p = ret * 10 + r;
+            if( p / 10 != ret ) {
+                return 0;
+            } else {
+                ret = p;
+            }
         }
 
         return ret;
@@ -68,6 +79,28 @@ int main(){
     input = -123;
     answer = s.reverse(input);
     if( answer==  -321 ) {
+        std::cout << " OK ";
+    } else {
+        std::cout << " ERROR, actual is " << answer;
+    }
+    std::cout << endl;
+
+    //case 5: 
+    std::cout << "case 5: 1534236469->0 ";
+    input = 1534236469;
+    answer = s.reverse(input);
+    if( answer == 0 ) {
+        std::cout << " OK ";
+    } else {
+        std::cout << " ERROR, actual is " << answer;
+    }
+    std::cout << endl;
+
+    //case 6: 
+    std::cout << "case 6: -1534236469->0 ";
+    input = -1534236469;
+    answer = s.reverse(input);
+    if( answer == 0 ) {
         std::cout << " OK ";
     } else {
         std::cout << " ERROR, actual is " << answer;
